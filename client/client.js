@@ -1,11 +1,15 @@
 
-document.domain = "http://127.0.0.1:5000";
+//document.domain = "http://127.0.0.1:5000";
 var peer = new Peer({key: 'lwjd5qra8257b9'});
 var serverIp = "http://127.0.0.1:5000";
 var serverPort = "5000";
 var peerList = [];
 var _data = undefined;
+var PeerID = undefined;
 
+peer.on('open', function(id) {
+  peerID = id;
+});
 
 function p2pUpload()
 {
@@ -31,7 +35,8 @@ function p2pDownload()
 
 function connectToServer()
 {
-	$.get(serverIp, function(data, status, xhr) {
+	
+	$.get(serverIp, PeerID, function(data, status, xhr) {
 		if (xhr.status == 200)
 		{
 			_data = data;
